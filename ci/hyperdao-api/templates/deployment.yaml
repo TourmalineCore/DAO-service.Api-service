@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "hyperdao-api.app-name" . }}-deployment
+  labels:
+    app: {{ template "hyperdao-api.app-name" . }}
+spec:
+  replicas: {{ .Values.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ template "hyperdao-api.app-name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "hyperdao-api.app-name" . }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      containers:
+      - image: {{ template "hyperdao-api.image-url" . }}
+        imagePullPolicy: Always
+        name: {{ template "hyperdao-api.app-name" . }}
+        volumeMounts:
+        - name: {{ template "hyperdao-api.app-name" . }}-env
+          mountPath: .env
+        envFrom:
+        - configMapRef:
+            name: {{ template "hyperdao-api.app-name" . }}-env
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: {{ template "hyperdao-api.app-name" . }}-env
+        configMap:
+          name: {{ template "hyperdao-api.app-name" . }}-env
+      nodeSelector:
+        kubernetes.io/os: linux
+      imagePullSecrets:
+      - name: {{ template "hyperdao-api.app-name" . }}-docker-secret

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "hyperdao-api.app-name" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: "/$2"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+      - {{ required "domain must be defined!" .Values.domain }}
+      secretName: {{ required "domain must be defined!" .Values.domain }}-tls
+  rules:
+  - host: {{ required "domain must be defined!" .Values.domain }}
+    http:
+      paths:
+      - path: /api(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "hyperdao-api.app-name" . }}-service
+            port: 
+              number: 80

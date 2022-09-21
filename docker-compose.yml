@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7.0
+    container_name: redis-bot
+    command: redis-server --requirepass redis-password
+    restart: unless-stopped
+    ports:
+      - 6200:6379
+
+  postgres:
+    image: postgres:14
+    container_name: postgres-bot
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nindao
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 6000:5432

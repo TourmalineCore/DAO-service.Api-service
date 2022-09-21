@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "hyperdao-api.app-name" . }}-service
+spec:
+  ports:
+  - port: 80
+    name: hyperdao-api
+  selector:
+    app: {{ template "hyperdao-api.app-name" . }}
+  type: ClusterIP

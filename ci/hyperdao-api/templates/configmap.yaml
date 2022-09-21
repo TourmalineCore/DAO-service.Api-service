@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "hyperdao-api.app-name" . }}-env
+data:
+  BOT_API_TOKEN: {{ required "BOT_API_TOKEN must be defined!" .Values.BOT_API_TOKEN | squote }}
+  APP_PORT: {{ required "APP_PORT must be defined!" .Values.APP_PORT | squote }}
+  INFURA_KEY: {{ required "INFURA_KEY must be defined!" .Values.INFURA_KEY | squote }}
+  NETWORK_NAME: {{ required "NETWORK_NAME must be defined!" .Values.NETWORK_NAME | squote }}
+  NIN_DAO_CONTRACT_ADDRESS: {{ required "NIN_DAO_CONTRACT_ADDRESS must be defined!" .Values.NIN_DAO_CONTRACT_ADDRESS | squote }}
+  REDIS_HOST: {{ required "REDIS_HOST must be defined!" .Values.REDIS_HOST | squote }}
+  REDIS_USERNAME: {{ required "REDIS_USERNAME must be defined!" .Values.REDIS_USERNAME | squote }}
+  REDIS_PASSWORD: {{ required "REDIS_PASSWORD must be defined!" .Values.REDIS_PASSWORD | squote }}
+  REDIS_PORT: {{ required "REDIS_PORT must be defined!" .Values.REDIS_PORT | squote }}
+  POSTGRES_USER: {{ required "POSTGRES_USER must be defined!" .Values.POSTGRES_USER | squote }}
+  POSTGRES_PASSWORD: {{ required "POSTGRES_PASSWORD must be defined!" .Values.POSTGRES_PASSWORD | squote }}
+  POSTGRES_HOST: {{ required "POSTGRES_HOST must be defined!" .Values.POSTGRES_HOST | squote }}
+  POSTGRES_DB: {{ required "POSTGRES_DB must be defined!" .Values.POSTGRES_DB | squote }}
+  POSTGRES_PORT: {{ required "POSTGRES_PORT must be defined!" .Values.POSTGRES_PORT | squote }}

@@ -1,0 +1,27 @@
+domain: dev.hyperdao.xyz
+
+deploySecrets: true
+
+ENV_KEY: Dev
+
+APP_PORT: 80
+BOT_API_TOKEN:
+INFURA_KEY:
+NETWORK_NAME:
+NIN_DAO_CONTRACT_ADDRESS:
+REDIS_HOST:
+REDIS_USERNAME:
+REDIS_PASSWORD:
+REDIS_PORT:
+POSTGRES_USER:
+POSTGRES_PASSWORD:
+POSTGRES_HOST:
+POSTGRES_DB:
+POSTGRES_PORT:
+
+imageTag: latest
+
+imageCredentials:
+  registry: registry.digitalocean.com
+  username: #secret
+  password: # secret
